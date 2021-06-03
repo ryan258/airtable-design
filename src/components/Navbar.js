@@ -7,7 +7,31 @@ import NavLink from './NavLink'
 import { GatsbyContext } from '../context/context'
 const Navbar = () => {
   return (
-   <h2>navbar component</h2>
+    <Wrapper>
+      <div className="nav-center">
+        <div className="nav-header">
+          <Link to="/">
+            <img src={logo} alt="airtable logo" />
+          </Link>
+          <button className="toggle-btn">
+            <GoThreeBars />
+          </button>
+        </div>
+        <ul className="nav-links">
+          {/* click items */}
+          <li>
+            <button>products</button>
+            {/* bubble of links under that item */}
+          </li>
+          <li>
+            <button>developers</button>
+          </li>
+          <li>
+            <button>company</button>
+          </li>
+        </ul>
+      </div>
+    </Wrapper>
   )
 }
 
