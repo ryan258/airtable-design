@@ -14,7 +14,7 @@ const HomePage = () => {
   return (
     <Layout>
       <Hero />
-      <h2>gatsby airtable starter</h2>
+      <About />
     </Layout>
   )
 }
