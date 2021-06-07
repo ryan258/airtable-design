@@ -21,6 +21,7 @@ const HomePage = ({ data }) => {
       <Hero />
       <About />
       <Projects projects={projects} title="Latest Projects" />
+      <Survey />
       <Slider customers={nodes} />
     </Layout>
   )

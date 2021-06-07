@@ -4,11 +4,37 @@ import styled from 'styled-components'
 import base from './Airtable'
 import { FaVoteYea } from 'react-icons/fa'
 
+// ! With this component we're getting data at runtime using React, not using local storage!
+// - once the component renders
+// - then it will grab the survey counts
+// so we'll need the airpackage module and to set up the base
+// see: components/Airtable.js
+// console.log(base) // if we see a doCall we're good to go!
+
 const Survey = () => {
- 
-  return (
-   <h2>survey component</h2>
-  )
+  const [items, setItems] = useState([])
+  const [loading, setLoading] = useState(true)
+  // base is going to return a promise
+  const getRecords = async () => {
+    const records = await base('Survey')
+      .select({})
+      .firstPage()
+      .catch(e => console.log(e))
+    // console.log(records)
+    const newItems = records.map(record => {
+      const { id, fields } = record
+      return { id, fields }
+    })
+
+    setItems(newItems)
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    getRecords()
+  }, [])
+  console.log(items)
+  return <h2>survey component</h2>
 }
 
 const Wrapper = styled.section`
