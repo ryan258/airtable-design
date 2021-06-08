@@ -3,13 +3,48 @@ import { graphql } from 'gatsby'
 import styled from 'styled-components'
 import { Layout, Projects, Algolia } from '../components'
 
-const ProjectsPage = () => {
-  
+//! data is being deconstructed out of the GQL query
+const ProjectsPage = ({ data }) => {
+  //! we deconstruct a usable alias for nodes out of data
+  const {
+    allAirtable: { nodes: projects },
+  } = data
+
   return (
-    <h2>projects page</h2>
+    <Wrapper>
+      <Layout>
+        {/* pass the projects data into the Projects component */}
+        <Projects title="Our Projects" projects={projects} page />
+      </Layout>
+    </Wrapper>
   )
 }
 
+//! vvv this export will return the data that is passed into ProjectPage ^^^
+export const query = graphql`
+  {
+    allAirtable(
+      filter: { table: { eq: "Projects" } }
+      sort: { fields: data___date, order: DESC }
+    ) {
+      nodes {
+        id
+        data {
+          date
+          name
+          type
+          image {
+            localFiles {
+              childImageSharp {
+                gatsbyImageData(layout: CONSTRAINED, placeholder: TRACED_SVG)
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
 
 const Wrapper = styled.main`
   min-height: 100vh;
