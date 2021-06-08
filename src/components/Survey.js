@@ -33,8 +33,39 @@ const Survey = () => {
   useEffect(() => {
     getRecords()
   }, [])
-  console.log(items)
-  return <h2>survey component</h2>
+  // console.log(items)
+
+  return (
+    <Wrapper className="section">
+      <div className="container">
+        <Title title="survey"></Title>
+        <h3>Most Important Room in the House?</h3>
+        {loading ? (
+          <h3>loading...</h3>
+        ) : (
+          <ul>
+            {items.map(item => {
+              const {
+                id,
+                fields: { name, votes },
+              } = item
+              return (
+                <li key={id}>
+                  <div className="key">
+                    {name.toUpperCase().substring(0, 2)}
+                  </div>
+                  <div>
+                    <h4>{name}</h4>
+                    <p>{votes} votes</p>
+                  </div>
+                </li>
+              )
+            })}
+          </ul>
+        )}
+      </div>
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.section`
