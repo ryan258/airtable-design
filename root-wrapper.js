@@ -1,6 +1,7 @@
 import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 // provider
+import { GatsbyProvider } from './src/context/context'
 
 const GlobalStyle = createGlobalStyle`
   /*
@@ -172,11 +173,15 @@ p {
 
 `
 
+// difference btw using gatsby and just react is that with gatsby you need to use wrapRootElement, or in gatsby-browser && gatsby-ssr
+// - well you could technically set up the context in something like the Layout.js
+// in react one could just do this in the App.js
 export const wrapRootElement = ({ element }) => {
   return (
     <>
       <GlobalStyle />
-      {element}
+      <GatsbyProvider>{element}</GatsbyProvider>
+      {/* now you can go to any component in the app and use useContext and you'll have access to the Provider's value prop */}
     </>
   )
 }
