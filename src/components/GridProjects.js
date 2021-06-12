@@ -5,7 +5,33 @@ import styled from 'styled-components'
 import { Link } from 'gatsby'
 const GridProjects = ({ projects, title }) => {
   return (
-    <h2>grid projects</h2>
+    <Wrapper>
+      <Title title={title || 'projects'} />
+      <div className="tile-layout">
+        {projects.map((project, index) => {
+          const { id } = project
+          const { name, type } = project.data
+          const image = project.data.image.localFiles[0]
+
+          return (
+            <article key={id} className={`div-${index}`}>
+              <GatsbyImage
+                image={getImage(image)}
+                alt={name}
+                className="img"
+              ></GatsbyImage>
+              <div className="info">
+                <p>- {type} -</p>
+                <h3>{name}</h3>
+              </div>
+            </article>
+          )
+        })}
+      </div>
+      <Link to="/projects" className="btn">
+        All Projects
+      </Link>
+    </Wrapper>
   )
 }
 
