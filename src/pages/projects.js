@@ -15,6 +15,7 @@ const ProjectsPage = ({ data }) => {
       <Layout>
         {/* pass the projects data into the Projects component */}
         <Projects title="Our Projects" projects={projects} page />
+        <Algolia />
       </Layout>
     </Wrapper>
   )
