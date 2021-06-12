@@ -11,11 +11,21 @@ const GatsbyContext = React.createContext()
 // this one we'll use only once in the root
 
 const GatsbyProvider = ({ children }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [links, setLinks] = useState(sublinks)
 
+  const showSidebar = () => {
+    setIsSidebarOpen(true)
+  }
+
+  const hideSidebar = () => {
+    setIsSidebarOpen(false)
+  }
+
   return (
-    <GatsbyContext.Provider value={{ isSidebarOpen, links }}>
+    <GatsbyContext.Provider
+      value={{ isSidebarOpen, links, showSidebar, hideSidebar }}
+    >
       {children}
     </GatsbyContext.Provider>
   )
