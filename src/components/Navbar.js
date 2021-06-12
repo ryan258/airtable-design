@@ -5,8 +5,13 @@ import { GoThreeBars } from 'react-icons/go'
 import { Link } from 'gatsby'
 import NavLink from './NavLink'
 import { GatsbyContext } from '../context/context'
+
 const Navbar = () => {
-  const { isSidebarOpen, showSidebar } = useContext(GatsbyContext)
+  const { isSidebarOpen, showSidebar, links } = useContext(GatsbyContext)
+
+  const tempLinks = [...new Set(links.map(link => link.page))]
+  // console.log(tempLinks)
+
   return (
     <Wrapper>
       <div className="nav-center">
@@ -22,16 +27,9 @@ const Navbar = () => {
         </div>
         <ul className="nav-links">
           {/* click items */}
-          <li>
-            <button>products</button>
-            {/* bubble of links under that item */}
-          </li>
-          <li>
-            <button>developers</button>
-          </li>
-          <li>
-            <Link to="/products/payments">company</Link>
-          </li>
+          {tempLinks.map((page, index) => {
+            return <NavLink key={index} page={page} />
+          })}
         </ul>
       </div>
     </Wrapper>
